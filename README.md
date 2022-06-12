@@ -88,7 +88,35 @@ Now follow these steps:
 2. In your terminal where you have `docker exec -it` running paste the following:
 ```bash
 cd src # this is where your "manage.py" file will be located
-echo '<the json for your ChainInfo>' > chain.json
+echo '[
+    {
+        "model": "chains.chain",
+        "pk": 15555,
+        "fields": {
+            "relevance": 100,
+            "name": "TrustEVMtestnet",
+            "short_name": "Trust",
+            "description": "Testnet for trustevm",
+            "l2": true,
+            "rpc_authentication": "NO_AUTHENTICATION",
+            "rpc_uri": "https://api.testnet-dev.trust.one",
+            "safe_apps_rpc_authentication": "NO_AUTHENTICATION",
+            "safe_apps_rpc_uri": "https://api.testnet-dev.trust.one",
+            "block_explorer_uri_address_template": "https://trustscan.one/address/{{address}}",
+            "block_explorer_uri_tx_hash_template": "https://trustscan.one/tx/{{txHash}}",
+            "currency_name": "EVM",
+            "currency_symbol": "EVM",
+            "currency_decimals": 18,
+            "currency_logo_uri": "chains/123/currency_logo.jpg",
+            "transaction_service_uri": "http://nginx:8000/txs",
+            "vpc_transaction_service_uri": "http://nginx:8000/txs",
+            "theme_text_color": "#0d004d",
+            "theme_background_color": "#a3eb71",
+            "ens_registry_address": null,
+            "recommended_master_copy_version": "1.3.0"
+        }
+    }
+]' > chain.json
 python manage.py loaddata chain.json
 ```
 3. Verify that your `ChainInfo` was successfully added by going to `http://localhost:8000/cfg/api/v1/chains`. 
